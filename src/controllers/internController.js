@@ -16,7 +16,6 @@ const isValid = function (value) {
 //----------------SECOND API CREATE INTERN 
 const createintern = async function (req, res) {
     try {
-        res.setHeader('Access-Control-Allow-Origin', '*')
         const requestBody = req.body;
 
         if (!isValidRequestBody(requestBody)) {
@@ -59,7 +58,7 @@ const createintern = async function (req, res) {
 
         }
         if (!isValid(collegeName)) {
-            res.status(400).send({ status: false, message: '  intern College name is required' })
+            res.status(400).send({ status: false, message: 'intern College name is required' })
             return
         }
         // FIND COLLEGE NAME IN COLLEGE MODEL

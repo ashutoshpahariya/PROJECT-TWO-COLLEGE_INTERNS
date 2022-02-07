@@ -10,3 +10,4 @@ const collegeSchema = new mongoose.Schema({
    , { timestamps: true })
 module.exports = mongoose.model('myCollege', collegeSchema)
 
+

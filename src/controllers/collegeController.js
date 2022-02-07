@@ -57,33 +57,33 @@ const registercollege = async function (req, res) {
 module.exports.registercollege = registercollege
 
 
+
+
+
+
+
+
+
+
 //------------------GET ALL INTERN DETAIL BY COLLEGE NAME
 const alldetails = async function (req, res) {
     try {
-        res.setHeader('Access-Control-Allow-Origin', '*')
-       
         let temp = await collegeModel.findOne({ name: req.query.collegeName, isDeleted: false })
-
         if (!temp) {
-            res.status(400).send({ status: false, err: "Invalid parameters: Provide a valid college an abbreviation" })
+            res.status(400).send({ status: false, msg: " Provide a valid college an abbreviation" })
         }
         else {
             let ID = temp._id
             let data = temp
-            let interns = await internModel.find({ collegeId: ID  ,isDeleted:false}).select({ _id: 1, name: 1, email: 1, mobile: 1 })
-
-            if (!interns) {
-                res.status(400).send({ status: false, msg: "No Interns applied for an internship" })
+            let interns = await internModel.find({ collegeId: ID, isDeleted: false })
+                .select({ _id: 1, name: 1, email: 1, mobile: 1 })
+            if (!interns.length > 0) {
+                return res.status(400).send({ status: false, msg: "No Interns applied for an internship" })
             }
-
             else {
-
                 let details = { name: data.name, fullname: data.fullName, logolink: data.logoLink, interests: interns }
-
-
-                res.status(200).send({ status: true, data: details })
+                return res.status(200).send({ status: true, data: details })
             }
-
         }
     }
 
